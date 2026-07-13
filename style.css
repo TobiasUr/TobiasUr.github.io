@@ -1,6 +1,6 @@
 @media only screen and (min-width: 1920px) {
     #main{
-        background: url("https://1drv.ms/i/c/9f156407f3ab9c15/IQDBcQyvTEv9RKPrXp3Hw7dSAYnFSUZ5v1CHV4yk1FG9vfg?e=c9q35G") no-repeat;
+        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg") no-repeat;
         height: 1080px;
     }
     .nav-item, .navbar-nav{
@@ -12,7 +12,7 @@
 }
 @media only screen and (min-width: 1366px) and (max-width: 1919px) {
     #main{
-        background: url("https://1drv.ms/i/c/9f156407f3ab9c15/IQDBcQyvTEv9RKPrXp3Hw7dSAYnFSUZ5v1CHV4yk1FG9vfg?e=c9q35G") no-repeat;
+        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg") no-repeat;
         height: 768px;
     }
     .nav-item, .navbar-nav{
@@ -24,7 +24,7 @@
 }
 @media only screen and (min-width: 1280px) and (max-width: 1365px) {
     #main{
-        background: url("https://1drv.ms/i/c/9f156407f3ab9c15/IQDBcQyvTEv9RKPrXp3Hw7dSAYnFSUZ5v1CHV4yk1FG9vfg?e=c9q35G") no-repeat;
+        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg") no-repeat;
         height: 800px;
     }
     .nav-item, .navbar-nav{
@@ -36,7 +36,7 @@
 }
 @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #main{
-        background: url("https://1drv.ms/i/c/9f156407f3ab9c15/IQDBcQyvTEv9RKPrXp3Hw7dSAYnFSUZ5v1CHV4yk1FG9vfg?e=c9q35G") no-repeat;
+        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg") no-repeat;
         height: 1028px;
     }
     #name{
@@ -45,7 +45,7 @@
 }
 @media only screen and (max-width: 767px) {
     #main{
-        background: url("https://1drv.ms/i/c/9f156407f3ab9c15/IQDBcQyvTEv9RKPrXp3Hw7dSAYnFSUZ5v1CHV4yk1FG9vfg?e=c9q35G") no-repeat;
+        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg") no-repeat;
         height: 736px;
     }
     #name{
