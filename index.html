@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
-    <link rel="stylesheet" href="styles.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -25,13 +24,13 @@
                             <a class="nav-link" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Projects</a>
+                            <a class="nav-link" href="#Projects">Portfolio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="#Blog">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="#Contact">Contact</a>
                         </li>
                     </ul>
             </nav>
@@ -40,12 +39,91 @@
         <h1 id="name">Tobias Urbanek</h1>
         <h2 class="line-1 anim-typewriter">Portfolio | Personal Blog</h2>
      </div>
-     <div id="Projects">
+     <!-- Projects -->
+        <div id="Projects">
         <div class="container"> 
-            <h1 class="text-center ">Projects</h>
-            <p class="text-center">Here are some of my projects:</p>
+            <h1 class="text-center heading">Portfolio</h1>
+            <!-- Project Cards -->
+            <div class="row pt-5 m-auto" id="projectCards">
+                <div class="col-md-6 col-lg-4 pb-3">
+                    <div class="card card-custom bg-dark border-dark border-0 h-100">
+                        <div class="card-body project1">
+                            <h5 class="card-title text-white">Engineering Projects</h5>
+                            <p class="card-text text-white">All engineering projects</p>
+                            <p class="card-img" style="background-image: url('https://media.architecturaldigest.com/photos/5890b11d33bd1de9129ea9b2/16:9/w_2240,c_limit/a380-A380-flying.jpg'); height: 200px; background-size: cover;"></p>
+                            <a href="#" class="btn btn-primary">View More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 pb-3">
+                    <div class="card card-custom bg-dark border-dark border-0 h-100">
+                        <div class="card-body project2">
+                            <h5 class="card-title text-white">Programming Projects</h5>
+                            <p class="card-text text-white">Certain programming projects</p>
+                            <p class="card-img" style="background-image: url('https://media.architecturaldigest.com/photos/5890b11d33bd1de9129ea9b2/16:9/w_2240,c_limit/a380-A380-flying.jpg'); height: 200px; background-size: cover;"></p>
+                            <a href="#" class="btn btn-primary">View More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 pb-3">
+                    <div class="card card-custom bg-dark border-dark border-0 h-100">
+                        <div class="card-body project2">
+                            <h5 class="card-title text-white">Photography</h5>
+                            <p class="card-text text-white">Photography portfolio</p>
+                            <p class="card-img" style="background-image: url('https://media.architecturaldigest.com/photos/5890b11d33bd1de9129ea9b2/16:9/w_2240,c_limit/a380-A380-flying.jpg'); height: 200px; background-size: cover;"></p>
+                            <a href="#" class="btn btn-primary">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
      </div>
+     <!-- Blog -->
+        <div id="Blog">
+            <div class="container"> 
+                <h1 class="text-center heading">Blog</h1>
+                <div class="row pt-5 m-auto" id="blogCards">
+                    <div class="col-md-6 col-lg-4 pb-3"></div>
+                    <div class="card cad-custom bg-dark border-dark border-0">
+                        <!-- Card content -->
+                    <div class="card-body blog1">
+                        <h5 class="card-title text-white">Blog Post 1</h5>
+                        <p class="card-text text-white">This is a summary of my first blog post.</p>
+                        <p class="card-img" style="background-image: url('https://media.architecturaldigest.com/photos/5890b11d33bd1de9129ea9b2/16:9/w_2240,c_limit/a380-A380-flying.jpg'); height: 200px; background-size: cover;"></p>
+                        <a href="#" class="btn btn-primary">Read More</a>  
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+
+     <!-- Contact -->
+     <div id="Contact">
+        <div class="container"> 
+            <h1 class="text-center heading">Contact</h1>
+            <form>
+                <div class="form-group mt-3">
+                    <label for="contact-name">Name</label>
+                    <input type="text" class="form-control" id="contact-name" placeholder="Enter your name">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" placeholder="Enter your message" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+
+     </div>
+
+     <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2026 Tobias Urbanek. All rights reserved.</p>
+        </footer>
 
 
 
