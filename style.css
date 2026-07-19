@@ -9,6 +9,18 @@
     #name{
         font-size: 6.5rem;
     }
+    #main_blogs{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/emauzy_2.jpeg") no-repeat;
+    background-size: cover;
+    height: 1080px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 20px;
+    }
+    #name_blogs{
+        font-size: 6.5rem;
+        margin-right: 170px;
+    }
 }
 @media only screen and (min-width: 1366px) and (max-width: 1919px) {
     #main{
@@ -20,6 +32,18 @@
     }
     #name{
         font-size: 5rem;
+    }
+    #main_blogs{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/emauzy_2.jpeg") no-repeat;
+    background-size: cover;
+    height: 768px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 15px;
+    }
+    #name_blogs{
+        font-size: 5rem;
+        margin-right: 170px;
     }
 }
 @media only screen and (min-width: 1280px) and (max-width: 1365px) {
@@ -33,6 +57,18 @@
     #name{
         font-size: 5rem;
     }
+    #main_blogs{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/emauzy_2.jpeg") no-repeat;
+    background-size: cover;
+    height: 800px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 15px;
+    }
+    #name_blogs{
+        font-size: 5rem;
+        margin-right: 140px;
+    }
 }
 @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #main{
@@ -41,6 +77,18 @@
     }
     #name{
         font-size: 3.5rem;
+    }
+    #main_blogs{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/emauzy_2.jpeg") no-repeat;
+    background-size: cover;
+    height: 1028px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 10px;
+    }
+    #name_blogs{
+        font-size: 3.5rem;
+        margin-right: 100px;
     }
 }
 @media only screen and (max-width: 767px) {
@@ -54,6 +102,18 @@
     }
     .line-1{
         margin-left: auto !important;
+        margin-right: 20px !important;
+    }
+    #main_blogs{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/emauzy_2.jpeg") no-repeat;
+    background-size: cover;
+    height: 736px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 20px;
+    }
+    #name_blogs{
+        font-size: 3.5rem;
         margin-right: 20px !important;
     }
 }
@@ -252,4 +312,16 @@ body{
   .gallery {
     column-count: 1;
   }
+}
+#main_blogs{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#name_blogs{
+    text-align: right;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #989898;
+    margin-top: 100px;
 }
