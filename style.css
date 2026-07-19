@@ -349,3 +349,106 @@ body{
     color: #989898;
     margin-top: 100px;
 }
+
+body#blog-post {
+    background: linear-gradient(135deg, #f7f7f7 0%, #ececec 100%);
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+}
+
+body#blog-post header {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 2rem 1rem 1.5rem;
+}
+
+body#blog-post .heading {
+    color: #1f2937;
+    padding: 0.5rem 0 0.25rem;
+    margin-bottom: 0;
+}
+
+body#blog-post .blog-post-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+}
+
+body#blog-post .blog-post-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.1rem;
+}
+
+body#blog-post .blog-post-card strong {
+    color: #1f2937;
+}
+
+body#blog-post .blog-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body#blog-post .blog-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+body#blog-post .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+body#blog-post .image-gallery .blog-image {
+    margin-bottom: 0;
+    max-height: 220px;
+}
+
+body#blog-post footer {
+    margin-top: 0;
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 2000;
+}
+
+.lightbox.loading::after {
+    content: "Loading...";
+    color: white;
+    font-size: 20px;
+    position: absolute;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+    body#blog-post .blog-post-card {
+        padding: 1.25rem;
+    }
+
+    body#blog-post .blog-image {
+        max-height: 260px;
+    }
+}
