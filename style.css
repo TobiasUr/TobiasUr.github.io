@@ -117,6 +117,30 @@
         font-size: 5rem;
         margin-right: 140px;
     }
+    #main_engineering{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/IMG_7255.JPG") no-repeat;
+    background-size: cover;
+    height: 800px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 15px;
+    }
+    #name_engineering{
+        font-size: 5rem;
+        margin-right: 140px;
+    }
+    #main_programming{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/Screenshot%202026-07-23%20174924.png") no-repeat;
+    background-size: cover;
+    height: 800px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 15px;
+    }
+    #name_programming{
+        font-size: 5rem;
+        margin-right: 140px;
+    }
 }
 @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #main{
@@ -135,6 +159,30 @@
         margin: 10px;
     }
     #name_blogs{
+        font-size: 3.5rem;
+        margin-right: 100px;
+    }
+    #main_engineering{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/IMG_7255.JPG") no-repeat;
+    background-size: cover;
+    height: 1028px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 10px;
+    }
+    #name_engineering{
+        font-size: 3.5rem;
+        margin-right: 100px;
+    }
+    #main_programming{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/Screenshot%202026-07-23%20174924.png") no-repeat;
+    background-size: cover;
+    height: 1028px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 10px;
+    }
+    #name_programming{
         font-size: 3.5rem;
         margin-right: 100px;
     }
@@ -164,11 +212,30 @@
         font-size: 3.5rem;
         margin-right: 20px !important;
     }
-}
-#main{
+    #main_engineering{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/IMG_7255.JPG") no-repeat;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: 736px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 20px;
+    }
+    #name_engineering{
+        font-size: 3.5rem;
+        margin-right: 20px !important;
+    }
+    #main_programming{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/Screenshot%202026-07-23%20174924.png") no-repeat;
+    background-size: cover;
+    height: 736px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 20px;
+    }
+    #name_programming{
+        font-size: 3.5rem;
+        margin-right: 20px !important;
+    }
 }
 .navbar-nav{
     font-size: 1.5rem;
@@ -385,10 +452,26 @@ body{
     column-count: 1;
   }
 }
-#main_blogs{
+#main, #main_blogs, #main_engineering, #main_programming{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+#name, #name_engineering{
+    text-align: right;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 100px;
+    margin-right: 70px;
+}
+#name_programming{
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 100px;
+    margin-left: 70px;
 }
 #name_blogs{
     text-align: right;
