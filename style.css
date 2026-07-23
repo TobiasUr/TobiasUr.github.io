@@ -21,6 +21,30 @@
         font-size: 6.5rem;
         margin-right: 170px;
     }
+    #main_engineering{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/IMG_7255.JPG") no-repeat;
+    background-size: cover;
+    height: 1080px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 20px;
+    }
+    #name_engineering{
+        font-size: 6.5rem;
+        margin-right: 170px;
+    }
+    #main_programming{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/Screenshot%202026-07-23%20174924.png") no-repeat;
+    background-size: cover;
+    height: 1080px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 20px;
+    }
+    #name_programming{
+        font-size: 6.5rem;
+        margin-right: 170px;
+    }
 }
 @media only screen and (min-width: 1366px) and (max-width: 1919px) {
     #main{
@@ -42,6 +66,30 @@
         margin: 15px;
     }
     #name_blogs{
+        font-size: 5rem;
+        margin-right: 170px;
+    }
+    #main_engineering{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/IMG_7255.JPG") no-repeat;
+    background-size: cover;
+    height: 768px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 15px;
+    }
+    #name_engineering{
+        font-size: 5rem;
+        margin-right: 170px;
+    }
+    #main_programming{
+    background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/Screenshot%202026-07-23%20174924.png") no-repeat;
+    background-size: cover;
+    height: 768px;
+    }
+    .nav-item, .navbar-nav{
+        margin: 15px;
+    }
+    #name_programming{
         font-size: 5rem;
         margin-right: 170px;
     }
