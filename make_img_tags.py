@@ -34,8 +34,10 @@ def get_photo_filenames(folder):
 
 def make_img_tag(base, filename, number):
     base = base.rstrip("/")
+    name, ext = os.path.splitext(filename)
+    small_filename = f"{name}_small{ext}"
     full_url = f"{base}/{filename}"
-    small_url = f"{base}/small/{filename}"
+    small_url = f"{base}/small/{small_filename}"
     alt = f"Photography {number}"
     return f'<img src="{small_url}" data-full="{full_url}" alt="{alt}">'
 
