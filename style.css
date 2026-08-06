@@ -507,6 +507,64 @@ body#blog-post .blog-post-card {
     margin-bottom: 2rem;
 }
 
+body#blog-post .travel-intro {
+    background: linear-gradient(135deg, #1f2937 0%, #334155 100%);
+    color: #f9fafb;
+    border-radius: 20px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.75rem;
+}
+
+body#blog-post .travel-kicker {
+    margin-bottom: 0.35rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 700;
+}
+
+body#blog-post .travel-lead {
+    margin-bottom: 0;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    max-width: 70ch;
+}
+
+body#blog-post .travel-day {
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(31, 41, 55, 0.08);
+}
+
+body#blog-post .travel-day:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+}
+
+body#blog-post .travel-day h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+body#blog-post .travel-day p {
+    margin-bottom: 1rem;
+}
+
+body#blog-post .media-card {
+    margin: 1rem 0 1.25rem;
+}
+
+body#blog-post .media-card img {
+    margin-bottom: 0;
+}
+
+body#blog-post .support-line {
+    font-weight: 600;
+    color: #111827;
+}
+
 body#blog-post .blog-post-card p {
     font-size: 1.05rem;
     line-height: 1.8;
@@ -579,7 +637,169 @@ body#blog-post footer {
         padding: 1.25rem;
     }
 
+    body#blog-post .travel-intro {
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+
+    body#blog-post .travel-lead {
+        font-size: 1.05rem;
+    }
+
+    body#blog-post .travel-day {
+        padding: 1.25rem 0;
+    }
+
+    body#blog-post .media-card {
+        margin: 0.9rem 0 1rem;
+    }
+
+    body#blog-post .blog-post-card {
+        padding: 1.25rem;
+    }
+
     body#blog-post .blog-image {
         max-height: 260px;
+    }
+}
+
+body#davinci-blender {
+    background: linear-gradient(180deg, #ececec 0%, #d3d3d3 100%);
+    color: #1f2937;
+    font-family: 'Roboto', sans-serif;
+}
+
+body#davinci-blender header {
+    padding-bottom: 0.5rem;
+}
+
+body#davinci-blender .heading {
+    color: #1f2937;
+    margin-bottom: 0;
+}
+
+body#davinci-blender main {
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+}
+
+body#davinci-blender .video-feature {
+    max-width: 1100px;
+}
+
+body#davinci-blender .video-eyebrow {
+    color: #6b7280;
+    letter-spacing: 0.16em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+body#davinci-blender .video-description {
+    max-width: 760px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #374151;
+    margin-bottom: 1.5rem;
+}
+
+body#davinci-blender .video-shell {
+    background: #111827;
+    border-radius: 24px;
+    padding: 1rem;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+body#davinci-blender .project-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    object-fit: cover;
+    background: #000;
+}
+
+body#davinci-blender .project-article {
+    max-width: 1100px;
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 2rem;
+}
+
+body#davinci-blender .article-section {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 24px;
+    padding: 1.75rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+body#davinci-blender .article-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+
+body#davinci-blender .article-section p {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+body#davinci-blender .article-section p:last-child {
+    margin-bottom: 0;
+}
+
+body#davinci-blender .media-card {
+    margin: 1.25rem 0;
+}
+
+body#davinci-blender .media-image {
+    display: block;
+    width: 100%;
+    border-radius: 18px;
+    background: #e5e7eb;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+body#davinci-blender .media-card figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #6b7280;
+    text-align: center;
+}
+
+body#davinci-blender .media-card--compact .media-image {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    body#davinci-blender main {
+        padding-top: 0.5rem;
+        padding-bottom: 2.5rem;
+    }
+
+    body#davinci-blender .video-shell {
+        padding: 0.75rem;
+        border-radius: 18px;
+    }
+
+    body#davinci-blender .project-video {
+        border-radius: 14px;
+    }
+
+    body#davinci-blender .article-section {
+        padding: 1.25rem;
+        border-radius: 18px;
+    }
+
+    body#davinci-blender .project-article {
+        margin-top: 2rem;
+        gap: 1.25rem;
     }
 }

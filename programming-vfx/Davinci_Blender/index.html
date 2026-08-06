@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TU - Davinci Blender Green Screen</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../style.css">   
+
+</head>
+<body id="davinci-blender">
+        <header>
+            <nav class = "navbar navbar-expand-lg navbar-light bg-light"> 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> 
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../../">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../">Programming & VFX</a>
+                        </li>
+                    </ul>
+            </div>
+            </nav>
+            <h1 class="text-center heading">Blender and DaVinci Resolve Green Screen Integration</h1>
+        </header>
+        <main class="container py-4 py-lg-5">
+            <section class="video-feature mx-auto">
+                <p class="video-eyebrow text-uppercase text-center">Programming & VFX</p>
+                <p class="video-description text-center mx-auto">
+                    A short showcase of the compositing workflow.
+                </p>
+                <div class="video-shell">
+                    <video class="project-video" controls autoplay muted loop playsinline preload="metadata">
+                        <source src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/DavinciBlenderGreenScreen/GreenScreen%20showcase.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </section>
+            <section class="project-article mx-auto">
+                <div class="article-section">
+                    <h2 class="article-title">Keying process</h2>
+                    <p>
+                        The keying process is handled in DaVinci Resolve Fusion. I start by reducing the noise to simplify the imige and the keying process.,
+                        Then I generated a clean plate with the help of a blur node. That, alongside a polygon mask, feeds into the
+                        Delta Keyer node. A matte control node and color correction nodes then refine the final keyed image.
+                    </p>
+                    <figure class="media-card">
+                        <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/DavinciBlenderGreenScreen/fusion_showcase.png" alt="DaVinci Resolve Fusion node setup for the keying process">
+                        <figcaption>Fusion node setup for keying the green screen footage.</figcaption>
+                    </figure>
+                    <p>
+                        Once the footage is keyed, I render the footage to <strong>.tif</strong> with the alpha channel enabled so it can
+                        move cleanly into Blender.
+                    </p>
+                </div>
+
+                <div class="article-section">
+                    <h2 class="article-title">Blender compositing</h2>
+                    <p>
+                        I used a car model from Blend Swap and paired it with background footage shot from a train window, which I downloaded from
+                        youtube (a side view footage from a car is surprisingly hard to find). 
+                    </p>
+                    <p>
+                        <small><small>Next time, I could try using a 360° footage.</small></small>
+                    </p>
+                    <p>
+                        The keyed clip and background video are imported as planes inside the Blender scene with the car. The video
+                        shading setup is shown below.
+                    </p>
+                    <figure class="media-card">
+                        <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/DavinciBlenderGreenScreen/blender_video_node.png" alt="Blender video shading node setup">
+                        <figcaption>Shading nodes setup for importing video as planes inside Blender.</figcaption>
+                    </figure>
+                    <p>
+                        The planes are positioned in the scene to somewhat match their original perspective. Like showed in the pictures below.  
+                    </p>
+                    <p><small><small>Next time, I would like to try Unreal Engine's composite depth mesh actor to get around perspective issues.</small></small></p>
+                    <div class="row g-4 media-grid">
+                        <div class="col-md-6">
+                            <figure class="media-card media-card--compact">
+                                <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/DavinciBlenderGreenScreen/blender_scene.png" alt="Blender scene layout before final rendering">
+                                <figcaption>Positioning of video planes inside the car.</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <figure class="media-card media-card--compact">
+                                <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/DavinciBlenderGreenScreen/blender_showcase.png" alt="Final Blender showcase frame">
+                                <figcaption>Positioning of video planes outside the car.</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <p>
+                        With the scene constructed, the last step is animating the car and camera, then rendering the final result
+                        in Blender Cycles.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+
+
+ <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2026 Tobias Urbanek. All rights reserved. | <a href="https://github.com/TobiasUr" class="text-white">GitHub</a></p>
+</footer>
+
