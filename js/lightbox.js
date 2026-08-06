@@ -13,13 +13,24 @@ if (lightbox && lightboxImg) {
       };
 
       lightboxImg.src = fullRes;
+      lightboxImg.alt = img.alt || 'Expanded image';
       lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     });
   });
 
-  lightbox.addEventListener('click', () => {
+  const closeLightbox = () => {
     lightbox.style.display = 'none';
     lightboxImg.src = '';
+    document.body.style.overflow = '';
+  };
+
+  lightbox.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && lightbox.style.display === 'flex') {
+      closeLightbox();
+    }
   });
 }
 

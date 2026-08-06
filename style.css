@@ -318,6 +318,15 @@ body{
     padding: 0;
     position: relative;
     min-height: 100%;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background: #f2f2f2;
+}
+
+img{
+    max-width: 100%;
+    display: block;
 }
 .footer{
     position: absolute;
@@ -343,21 +352,28 @@ body{
 .card-custom{
     overflow: hidden;
     min-height: 450px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    background: #111827;
+}
+.card-custom:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+.card-custom .card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 .card-img{
     background-size: cover;
     background-position: center;
-    height: 200px;
-    min-height: 200px;
+    min-height: 220px;
     background-repeat: no-repeat;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    box-shadow: inset 0 0 10px 10px #212529;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   
    
 }
@@ -374,14 +390,11 @@ body{
 .card-img-large{
     background-size: cover;
     background-position: center;
-    height: 500px;
-    min-height: 500px;
+    min-height: 280px;
     background-repeat: no-repeat;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    box-shadow: inset 0 0 10px 10px #212529;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   
    
 }
@@ -399,6 +412,39 @@ body{
     background-color: #d3d3d3;
     padding-bottom: 100px;
 }
+.gallery,
+body#photography .gallery {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+}
+
+body#photography {
+    background: linear-gradient(180deg, #ececec 0%, #d3d3d3 100%);
+    color: #1f2937;
+    font-family: 'Roboto', sans-serif;
+}
+
+body#photography header {
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+    padding: 1.5rem 1rem 1rem;
+    margin-bottom: 1rem;
+}
+
+body#photography .heading {
+    color: #1f2937;
+    padding-top: 1rem;
+}
+
+body#photography header p.text-center {
+    color: #4b5563;
+    max-width: 62ch;
+    margin: 0.5rem auto 0;
+    padding: 0 1rem;
+}
+
 .gallery{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -452,6 +498,23 @@ body{
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+        body#photography header {
+                padding: 1.1rem 0.75rem 0.75rem;
+                margin-bottom: 0.75rem;
+        }
+
+        body#photography .heading {
+                padding-top: 0.75rem;
+        }
+
+        .gallery,
+        body#photography .gallery {
+                padding: 1rem 0.75rem 2.25rem;
+                gap: 0.85rem;
+        }
+}
 #main, #main_blogs, #main_engineering, #main_programming{
     background-size: cover;
     background-position: center;
@@ -501,8 +564,8 @@ body#blog-post .heading {
 
 body#blog-post .blog-post-card {
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
     padding: 2rem 2.5rem;
     margin-bottom: 2rem;
 }
@@ -579,20 +642,20 @@ body#blog-post .blog-image {
     width: 100%;
     max-height: 420px;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 18px;
     margin-bottom: 1.25rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 body#blog-post .blog-image:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    transform: scale(1.015);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
 }
 
 body#blog-post .image-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
 }
@@ -635,6 +698,7 @@ body#blog-post footer {
 @media (max-width: 768px) {
     body#blog-post .blog-post-card {
         padding: 1.25rem;
+        border-radius: 18px;
     }
 
     body#blog-post .travel-intro {
@@ -654,8 +718,8 @@ body#blog-post footer {
         margin: 0.9rem 0 1rem;
     }
 
-    body#blog-post .blog-post-card {
-        padding: 1.25rem;
+    body#blog-post .image-gallery {
+        grid-template-columns: 1fr;
     }
 
     body#blog-post .blog-image {
