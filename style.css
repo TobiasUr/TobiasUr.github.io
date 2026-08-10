@@ -790,6 +790,92 @@ body#davinci-blender .project-article {
     gap: 2rem;
 }
 
+/* Page-specific refinements for a cleaner reading experience */
+body#davinci-blender .navbar {
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    padding: 0.45rem 0.75rem;
+    box-shadow: 0 8px 22px rgba(17,24,39,0.06);
+}
+
+body#davinci-blender .navbar .nav-link{
+    color: #111827;
+    font-weight: 600;
+}
+
+body#davinci-blender .heading{
+    font-size: 2.25rem;
+    margin-top: 0.5rem;
+}
+
+body#davinci-blender .article-section {
+    line-height: 1.75;
+}
+
+body#davinci-blender .article-title {
+    font-size: 1.35rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(17,24,39,0.04);
+    margin-bottom: 1rem;
+}
+
+/* Tables: subtle card-like appearance, zebra rows, responsive overflow */
+body#davinci-blender .figure-table {
+    margin: 1rem 0 1.5rem;
+}
+
+body#davinci-blender .figure-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.96);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(2,6,23,0.06);
+}
+
+body#davinci-blender .figure-table thead th{
+    background: rgba(17,24,39,0.04);
+}
+
+body#davinci-blender .figure-table tbody tr:nth-child(even){
+    background: rgba(17,24,39,0.02);
+}
+
+body#davinci-blender .figure-table th,
+body#davinci-blender .figure-table td{
+    padding: 0.7rem 0.95rem;
+    color: #374151;
+}
+
+body#davinci-blender .figure-table figcaption{
+    margin-top: 0.6rem;
+    font-size: 0.92rem;
+    color: #6b7280;
+    text-align: center;
+}
+
+@media (max-width: 768px){
+    body#davinci-blender .figure-table table{display:block; overflow:auto;}
+    body#davinci-blender .figure-table th, body#davinci-blender .figure-table td{white-space:nowrap}
+}
+
+/* Code block styling for highlighted MATLAB snippets */
+body#davinci-blender pre{
+    background: #0f1724; /* dark grounding for code */
+    color: #e6eef6;
+    padding: 1rem;
+    border-radius: 12px;
+    overflow: auto;
+    box-shadow: 0 10px 26px rgba(2,6,23,0.12);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+body#davinci-blender pre code{background:transparent; color:inherit}
+
+body#davinci-blender .media-card{background:transparent}
+
 body#davinci-blender .article-section {
     background: rgba(255, 255, 255, 0.72);
     border: 1px solid rgba(17, 24, 39, 0.08);
@@ -835,6 +921,63 @@ body#davinci-blender .media-card figcaption {
     line-height: 1.5;
     color: #6b7280;
     text-align: center;
+}
+
+/* Tables used in project articles */
+body#davinci-blender .figure-table {
+    margin: 1rem 0 1.5rem;
+}
+
+body#davinci-blender .figure-table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+body#davinci-blender .figure-table thead {
+    background: rgba(17, 24, 39, 0.04);
+}
+
+body#davinci-blender .figure-table th,
+body#davinci-blender .figure-table td {
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    vertical-align: middle;
+    color: #374151;
+    border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+    font-size: 0.96rem;
+}
+
+body#davinci-blender .figure-table th {
+    font-weight: 700;
+    color: #111827;
+}
+
+body#davinci-blender .figure-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+body#davinci-blender .figure-table figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.92rem;
+    color: #6b7280;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    body#davinci-blender .figure-table table,
+    body#davinci-blender .figure-table th,
+    body#davinci-blender .figure-table td {
+        font-size: 0.92rem;
+    }
+    body#davinci-blender .figure-table th,
+    body#davinci-blender .figure-table td {
+        padding: 0.5rem 0.6rem;
+    }
 }
 
 body#davinci-blender .media-card--compact .media-image {
