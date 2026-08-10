@@ -791,18 +791,6 @@ body#davinci-blender .project-article {
 }
 
 /* Page-specific refinements for a cleaner reading experience */
-body#davinci-blender .navbar {
-    background: rgba(255,255,255,0.9);
-    border-radius: 12px;
-    padding: 0.45rem 0.75rem;
-    box-shadow: 0 8px 22px rgba(17,24,39,0.06);
-}
-
-body#davinci-blender .navbar .nav-link{
-    color: #111827;
-    font-weight: 600;
-}
-
 body#davinci-blender .heading{
     font-size: 2.25rem;
     margin-top: 0.5rem;
