@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TU - Gravity Sim</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../style.css">   
+    <script src="../../../js/highlight/init.js" defer></script>
+
+</head>
+<body id="davinci-blender">
+        <header>
+            <nav class = "navbar navbar-expand-lg navbar-light bg-light"> 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> 
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../../">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../">Programming</a>
+                        </li>
+                    </ul>
+            </div>
+            </nav>
+            <h1 class="text-center heading">Gravity Simulation</h1>
+        </header>
+        <main class="container py-4 py-lg-5">
+            <section class="video-feature mx-auto">
+                <p class="video-eyebrow text-uppercase text-center">Programming in C++</p>
+                <p class="video-description text-center mx-auto">
+                    A Gravity Simulation with a 3D visualization. Written in C++
+                </p>
+                <div class="video-shell">
+                    <video class="project-video" controls autoplay muted loop playsinline preload="metadata">
+                        <source src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/3d_grav_sim/grav_anim.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </section>
+            <section class="project-article mx-auto">
+                <div class="article-section">
+                    <h2 class="article-title">Problem Statement</h2>
+                    <p>
+						This was a final project for the course CSE1502 at Florida Institute of Technology.
+                    </p>
+                    <p>
+						This program will simulate the gravitational motion of any number of bodies in a system. It will then visualise the data in real time. Ideally, the number of bodies within the system could be entered through a command prompt; however, it is uncertain whether there will be time to implement this feature.
+                    </p>
+                </div>
+
+                <div class="article-section">
+                    <h2 class="article-title">Software Construction</h2>
+                    <p>
+						First, a variables.h file was created to hold all the variables required by the main program.
+                    </p>
+                    <pre><code class="language-cpp">
+// 2d vector - not in use [3]
+struct vector2D
+{
+	boost::multiprecision::cpp_dec_float_100 x;
+	boost::multiprecision::cpp_dec_float_100 y;
+};
+//high precision 3d vector [3]
+struct vector3D
+{
+	boost::multiprecision::cpp_dec_float_100 x;
+	boost::multiprecision::cpp_dec_float_100 y;
+	boost::multiprecision::cpp_dec_float_100 z;
+};
+
+//convert boost to magnum [2]
+Magnum::Vector3 vec3DtoMagnum(const vector3D& vec) {
+
+	return Magnum::Vector3(vec.x.convert_to<double>(), vec.y.convert_to<double>(), vec.z.convert_to<double>());
+}                   </code></pre>
+					<p>The Boost library was used to provide high-precision floating-point arithmetic.</p>
+					<p>Furthermore, a function to calculate the force between two bodies was implemented.</p>
+                    <p>This function was created in a <i>classes.h</i> file under the Body class.</p>
+                    <pre><code class="language-cpp">                        
+void calculate_gravitational_force(const Body& other, boost::multiprecision::cpp_dec_float_100 G) {
+	//Calculate the distance between two bodies
+	boost::multiprecision::cpp_dec_float_100 distance_x = other.pos.x - pos.x;
+	boost::multiprecision::cpp_dec_float_100 distance_y = other.pos.y - pos.y;
+	boost::multiprecision::cpp_dec_float_100 distance_z = other.pos.z - pos.z;
+	boost::multiprecision::cpp_dec_float_100 distance_squared = distance_x * distance_x + distance_y * distance_y + distance_z * distance_z;
+	//Calculate the size of the gravitational force using Newton's law of gravitation
+	boost::multiprecision::cpp_dec_float_100 force_magnitude = G * mass * other.mass / distance_squared;
+	boost::multiprecision::cpp_dec_float_100 distance = sqrt(distance_squared);
+	//Calculate the direction of the force and update the force vector
+	force.x += force_magnitude * (distance_x / distance);
+	force.y += force_magnitude * (distance_y / distance);
+	force.z += force_magnitude * (distance_z / distance);
+}
+                    </code></pre>
+					<p>Then, a list of bodies was created in <i>main.cpp</i>.</p>
+					<pre><code class="language-cpp">
+Body Bodies[4] = { 
+	{"Sun", 1, 1.989e30, true, {0, 0, 0}},
+	{"Earth", 2, 5.972e24, true, {1.496e11, 0, 0}, {0, 29780, 0}},
+	{"Mars", 3, 6.39e23, true, {2.279e11, 0, 0}, {0, 24070, 0}},
+	{"Comet", 4, 7.348e22, true, {3.844e8, 0, 1.496e11}, {8780,  0, 0}}
+};
+                    </code></pre>
+					<p>Furthermore, a function to update the forces acting on each body was created.</p>
+                    <pre><code class="language-cpp">
+void update_physics(double dt) {
+	// Calculate forces for all bodies
+	for (Body& body : Bodies) {
+		int id = body.id;
+		body.force = { 0, 0, 0 }; // Reset forces
+		for (Body& body_g : Bodies) {
+			if (body_g.id != id) {
+				body.calculate_gravitational_force(body_g, G);
+			}
+		}
+	}
+
+	// Update positions based on the calculated forces
+	for (Body& body : Bodies) {
+		body.update_position(time_step * dt);
+	}
+}                
+                    </code></pre>
+					<p>Finally, the Magnum engine was used to render the 3D simulation. This followed experimentation with OpenGL, which was too time-consuming to complete within the project timeline.</p>
+					<p>The following code shows the implementation of the 3D rendering. It was created with heavy reliance on the Magnum documentation and a small amount of AI assistance:</p>
+                    <pre><code class="language-cpp">
+SimulationApp::SimulationApp(const Arguments& arguments) :
+	Magnum::Platform::Application{ arguments, Configuration{}.setTitle("Solar System") }
+{
+	// Create sphere mesh 
+	auto sphereData = Magnum::Primitives::uvSphereSolid(16, 16);
+	sphere = Magnum::GL::Mesh{};
+	Magnum::GL::Buffer vertices;
+	vertices.setData(sphereData.vertexData());
+	Magnum::GL::Buffer indices;
+	indices.setData(sphereData.indexData());
+
+	// Link vertices and normals to shader
+	sphere.setCount(sphereData.indexCount())
+		.addVertexBuffer(std::move(vertices), 0,
+			Magnum::Shaders::PhongGL::Position{},
+			Magnum::Shaders::PhongGL::Normal{})
+		.setIndexBuffer(std::move(indices), 0, Magnum::MeshIndexType::UnsignedInt);
+
+	// Shader initialization
+	shader = Magnum::Shaders::PhongGL{};
+
+	// Set up the camera
+	auto* cameraObj =
+		new Magnum::SceneGraph::Object<Magnum::SceneGraph::MatrixTransformation3D>{ &scene };
+
+	//set camera position
+	cameraObj->translate(Magnum::Math::Vector3<float>{0.0f, 0.0f, 50.0f});
+
+
+	camera = new Magnum::SceneGraph::Camera3D{ *cameraObj };
+	camera->setProjectionMatrix(
+		Magnum::Math::Matrix4<float>::perspectiveProjection(
+			Magnum::Math::Deg<float>{45.0f}, // Field of View
+			16.0f / 9.0f, //Aspect Ratio
+			0.01f, 1000.0f)); // Clipping planes
+
+
+	//set up bodies
+	sunObj = new Magnum::SceneGraph::Object<Magnum::SceneGraph::MatrixTransformation3D>{ &scene };
+	earthObj = new Magnum::SceneGraph::Object<Magnum::SceneGraph::MatrixTransformation3D>{ &scene };
+	marsObj = new Magnum::SceneGraph::Object<Magnum::SceneGraph::MatrixTransformation3D>{ &scene };
+	cometObj = new Magnum::SceneGraph::Object<Magnum::SceneGraph::MatrixTransformation3D>{ &scene };
+
+	// Delta time last_time set to now
+	last_time = std::chrono::high_resolution_clock::now();
+
+	//Configure rendering settings
+	Magnum::GL::Renderer::enable(Magnum::GL::Renderer::Feature::DepthTest);
+	Magnum::GL::Renderer::enable(Magnum::GL::Renderer::Feature::FaceCulling);
+}
+
+// Draw event function [2]
+void SimulationApp::drawEvent() {
+
+	// Delta time
+	auto now = std::chrono::high_resolution_clock::now();
+	double delta_t = std::chrono::duration<double>(now - last_time).count();
+	last_time = now;
+
+	// Physics update
+	update_physics(delta_t);
+
+	// Scale factor for the simulation (to fit inside the window)
+	float scale_factor = 5e-11f; 
+
+	// Update transformations for each body {number in here is the scale of the body}
+	sunObj->resetTransformation()
+		.scale(Magnum::Math::Vector3<float>{0.8f})
+		.translate(vec3DtoMagnum(Bodies[0].pos) * scale_factor); 
+
+	earthObj->resetTransformation()
+		.scale(Magnum::Math::Vector3<float>{0.4f})
+		.translate(vec3DtoMagnum(Bodies[1].pos) * scale_factor); 
+
+	marsObj->resetTransformation()
+		.scale(Magnum::Math::Vector3<float>{0.25f})
+		.translate(vec3DtoMagnum(Bodies[2].pos) * scale_factor); 
+
+	cometObj->resetTransformation()
+		.scale(Magnum::Math::Vector3<float>{0.15f})
+		.translate(vec3DtoMagnum(Bodies[3].pos) * scale_factor); 
+
+	//clear the screen
+	Magnum::GL::defaultFramebuffer.clear(Magnum::GL::FramebufferClear::Color | Magnum::GL::FramebufferClear::Depth);
+
+	// Set the position and color of the light (not the sun because of clipping issues)
+	shader.setLightPositions({ Magnum::Math::Vector4<float>{5.0f, 5.0f, 5.0f, 0.0f} })
+		.setLightColors({ Magnum::Color3{1.0f} })
+		.setProjectionMatrix(camera->projectionMatrix());
+	// Draw the planets with different colours
+	shader.setDiffuseColor(Magnum::Color3{ 1.0f, 1.0f, 0.0f }) // Colour here
+		.setTransformationMatrix(camera->cameraMatrix() * sunObj->transformationMatrix())
+		.setNormalMatrix((camera->cameraMatrix() * sunObj->transformationMatrix()).normalMatrix());
+	shader.draw(sphere);
+
+	shader.setDiffuseColor(Magnum::Color3{ 0.0f, 0.66f, 1.0f })
+		.setTransformationMatrix(camera->cameraMatrix() * earthObj->transformationMatrix())
+		.setNormalMatrix((camera->cameraMatrix() * earthObj->transformationMatrix()).normalMatrix());
+	shader.draw(sphere);
+
+	shader.setDiffuseColor(Magnum::Color3{ 1.0f, 0.2f, 0.0f }) 
+		.setTransformationMatrix(camera->cameraMatrix() * marsObj->transformationMatrix())
+		.setNormalMatrix((camera->cameraMatrix() * marsObj->transformationMatrix()).normalMatrix());
+	shader.draw(sphere);
+
+	shader.setDiffuseColor(Magnum::Color3{ 0.7f, 0.7f, 0.7f }) 
+		.setTransformationMatrix(camera->cameraMatrix() * cometObj->transformationMatrix())
+		.setNormalMatrix((camera->cameraMatrix() * cometObj->transformationMatrix()).normalMatrix());
+	shader.draw(sphere);
+
+	// Swap buffers and redraw
+	swapBuffers();
+	redraw();
+}
+                    </code></pre>
+                </div>
+                <div class="article-section">
+                    <h2 class="article-title">Conclusion</h2>
+                    <p><b>Software Testing</b></p>
+					<p>The planets in the visualisation act according to their physical properties. It is worth noting that the visualised system is scaled down because of the enormous scale of the real simulated system. It is also worth noting that the system is stable only for a relatively small amount of time (on the timescale of the universe). After some time, some of the planets will fly away.</p>
+                    <p><b>Conclusion</b></p>
+					<p>The physical calculations themselves were not that difficult. The main difficulty came from using extremely large numbers. This problem was solved by using the Boost library. Another problem occurred when trying to visualise the simulation. Initially, I wanted to use the OpenGL library; however, the time required was deemed too demanding. After that, I tried to use matplotplusplus, but this effort was unsuccessful. After some research online, I found the Magnum engine, which seemed lightweight and simple enough to integrate. After a considerable amount of time, I managed to get Magnum working. For this reason, the Magnum integration might not seem as clean as the rest of the code. In future iterations, I would like to keep the main.cpp file cleaner and move most of the code from it into classes.h and variables.h. This was not possible due to time constraints. The main issue with the integration came from the fact that I decided to build the program manually using CMake, which was retrospectively a mistake. There were problems with MSYS2 interfering with the building process. Fortunately, after a few days of debugging, I managed to get Magnum and its dependencies built and integrated into the program. In the future, if I were to build a program like this, I would use an environment such as MSYS2.</p>
+            </div>
+            <div class="article-section">
+                    <h2 class="article-title">References</h2>
+					<p>[1] "Generate a list of bodies for this program with plausible values." Microsoft Copilot, version 2604, Microsoft, 18 Apr. 2026, copilot.microsoft.com.</p>
+					<p>[2] Vondruš, Vladimír. "Magnum Engine." Magnum Engine, 2022, magnum.graphics/.</p>
+					<p>[3] Boost C++ Libraries. "The Boost C++ Libraries Are Open Source, Peer-Reviewed, Portable and Free." Boost, www.boost.org/. Accessed 25 Apr. 2026.</p>
+					<p>[4] Joe-Yen, Stefan. "CSE1502: Introduction to Software Dev. in C++, Sect. 03 Syllabus." Syllabus, fit.instructure.com/courses/678104/assignments/syllabus. Accessed 29 Apr. 2026.</p>
+					<p>[5] Mosra. "Mosra/Corrade: C++11 Multiplatform Utility Library." GitHub, github.com/mosra/corrade. Accessed 25 Apr. 2026.</p>
+            </div>
+            </section>
+
+        </main>
+
+
+
+ <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2026 Tobias Urbanek. All rights reserved. | <a href="https://github.com/TobiasUr" class="text-white">GitHub</a></p>
+</footer>
+
+</body>
+
+</html>
