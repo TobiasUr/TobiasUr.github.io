@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tobias Urbanek - Portfolio & Blog</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta name="description" content="Tobias Urbanek's portfolio and personal blog — engineering, programming & VFX, and photography projects.">
+    <link rel="preconnect" href="https://raw.githubusercontent.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap CSS: loaded non-blocking (page only uses it for the nav toggle + grid here) -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" as="style" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></noscript>
 </head>
 
-<body>  
+<body>
+    <main>
     <!-- Main -->
      <div id="main">
         <header>
@@ -49,30 +54,30 @@
                 <div class="col-md-6 col-lg-4 pb-3">
                     <div class="card card-custom bg-dark border-dark border-0 h-100">
                         <div class="card-body project1">
-                            <h5 class="card-title text-white">Engineering Projects</h5>
+                            <h3 class="card-title text-white">Engineering Projects</h3>
                             <p class="card-text text-white">All engineering projects</p>
-                            <p class="card-img" style="background-image: url('https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/glider.png?raw=true'); height: 200px; background-size: cover;"></p>
-                            <a href="engineering/" class="btn btn-primary">View More</a>
+                            <p class="card-img" style="background-image: url('https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/glider.png'); height: 200px; background-size: cover;"></p>
+                            <a href="engineering/" class="btn btn-primary" aria-label="View more engineering projects">View More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 pb-3">
                     <div class="card card-custom bg-dark border-dark border-0 h-100">
                         <div class="card-body project2">
-                            <h5 class="card-title text-white">Programming & VFX Projects</h5>
+                            <h3 class="card-title text-white">Programming & VFX Projects</h3>
                             <p class="card-text text-white">Certain programming and VFX projects</p>
                             <p class="card-img" style="background-image: url('https://img.magnific.com/free-photo/computer-program-coding-screen_53876-138060.jpg?semt=ais_hybrid&w=740&q=80'); height: 200px; background-size: cover;"></p>
-                            <a href="programming-vfx/" class="btn btn-primary">View More</a>
+                            <a href="programming-vfx/" class="btn btn-primary" aria-label="View more programming and VFX projects">View More</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 pb-3">
                     <div class="card card-custom bg-dark border-dark border-0 h-100">
                         <div class="card-body project2">
-                            <h5 class="card-title text-white">Photography</h5>
+                            <h3 class="card-title text-white">Photography</h3>
                             <p class="card-text text-white">Photography portfolio</p>
-                            <p class="card-img" style="background-image: url('https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/IMG_5589.JPEG?raw=true'); height: 200px; background-size: cover;"></p>
-                            <a href="photography/" class="btn btn-primary">View More</a>
+                            <p class="card-img" style="background-image: url('https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/IMG_5589.JPEG'); height: 200px; background-size: cover;"></p>
+                            <a href="photography/" class="btn btn-primary" aria-label="View the photography portfolio">View More</a>
                         </div>
                     </div>
                 </div>
@@ -87,10 +92,10 @@
                     <div class="col-md-8 col-lg-6 pb-3">
                         <div class="card card-custom bg-dark border-dark border-0 h-100">
                             <div class="card-body blog1">
-                                <h5 class="card-title text-white">Blogs</h5>
+                                <h3 class="card-title text-white">Blogs</h3>
                                 <p class="card-text text-white">All past and present blogs.</p>
-                                <p class="card-img" style="background-image: url('https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/Screenshot%202026-07-14%20211744.png?raw=true');"></p>
-                                <a href="blogs/" class="btn btn-primary">Read More</a>
+                                <p class="card-img" style="background-image: url('https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/Screenshot%202026-07-14%20211744.png');"></p>
+                                <a href="blogs/" class="btn btn-primary" aria-label="Read more blog posts">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -123,6 +128,8 @@
 
      </div>
 
+     </main>
+
      <!-- Footer -->
         <footer class="bg-dark text-white text-center py-3">
             <p>&copy; 2026 Tobias Urbanek. All rights reserved. | <a href="https://github.com/TobiasUr" class="text-white">GitHub</a></p>
@@ -131,5 +138,5 @@
 
 
     <!-- Bootstrap JS Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
 </body>

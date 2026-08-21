@@ -1,6 +1,6 @@
 @media only screen and (min-width: 1920px) {
     #main{
-        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg?raw=true") no-repeat;
+        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
         height: 1080px;
     }
     .nav-item, .navbar-nav{
@@ -48,7 +48,7 @@
 }
 @media only screen and (min-width: 1366px) and (max-width: 1919px) {
     #main{
-        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg?raw=true") no-repeat;
+        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
         height: 768px;
     }
     .nav-item, .navbar-nav{
@@ -96,7 +96,7 @@
 }
 @media only screen and (min-width: 1280px) and (max-width: 1365px) {
     #main{
-        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg?raw=true") no-repeat;
+        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
         height: 800px;
     }
     .nav-item, .navbar-nav{
@@ -144,7 +144,7 @@
 }
 @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #main{
-        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg?raw=true") no-repeat;
+        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
         height: 1028px;
     }
     #name{
@@ -189,7 +189,7 @@
 }
 @media only screen and (max-width: 767px) {
     #main{
-        background: url("https://github.com/TobiasUr/TobiasUr.github.io/blob/main/media/background_main.jpg?raw=true") no-repeat;
+        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
         height: 736px;
     }
     #name{
@@ -291,6 +291,11 @@
     text-align: center;
     padding-top: 50px;
 }
+#Projects .heading,
+#Blog .heading,
+#Contact .heading{
+    color: #1f2937;
+}
 
 #Blog{
     background-color: #d3d3d3;
@@ -337,7 +342,7 @@ img{
     background-color: #f5f5f5;
 }
 .btn{
-    background-color: #7e7e7e;
+    background-color: #495057;
     color: #fff;
     border: #9494949b;
     transition: background-color 0.3s ease;
@@ -454,6 +459,9 @@ body#photography header p.text-center {
 .gallery img{
     width: 100%;
     height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background-color: #e0e0e0;
     border-radius: 5px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
