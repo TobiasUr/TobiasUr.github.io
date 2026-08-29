@@ -1,6 +1,6 @@
 @media only screen and (min-width: 1920px) {
     #main{
-        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
+        background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/portfolio/IMG_5319.JPG") no-repeat;
         height: 1080px;
     }
     .nav-item, .navbar-nav{
@@ -48,7 +48,7 @@
 }
 @media only screen and (min-width: 1366px) and (max-width: 1919px) {
     #main{
-        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
+        background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/portfolio/IMG_5319.JPG") no-repeat;
         height: 768px;
     }
     .nav-item, .navbar-nav{
@@ -96,7 +96,7 @@
 }
 @media only screen and (min-width: 1280px) and (max-width: 1365px) {
     #main{
-        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
+        background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/portfolio/IMG_5319.JPG") no-repeat;
         height: 800px;
     }
     .nav-item, .navbar-nav{
@@ -144,7 +144,7 @@
 }
 @media only screen and (min-width: 768px) and (max-width: 1279px) {
     #main{
-        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
+        background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/portfolio/IMG_5319.JPG") no-repeat;
         height: 1028px;
     }
     #name{
@@ -189,7 +189,7 @@
 }
 @media only screen and (max-width: 767px) {
     #main{
-        background: url("https://raw.githubusercontent.com/TobiasUr/TobiasUr.github.io/main/media/background_main.jpg") no-repeat;
+        background: url("https://pub-62bbeee194df44df80128065886ae438.r2.dev/portfolio/IMG_5319.JPG") no-repeat;
         height: 736px;
     }
     #name{
