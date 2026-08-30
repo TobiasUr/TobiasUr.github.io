@@ -27,11 +27,15 @@
   var cssUrl = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css';
   var hljsUrl = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js';
   var matlabLangUrl = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/matlab.min.js';
+  var pythonLangUrl = '../../js/highlight/languages/python.min.js';
+  var cppLangUrl = '../../js/highlight/languages/cpp.min.js';
 
   // Load CSS + scripts then initialize
   loadCSS(cssUrl)
     .then(function(){ return loadScript(hljsUrl); })
     .then(function(){ return loadScript(matlabLangUrl); })
+    .then(function(){ return loadScript(pythonLangUrl); })
+    .then(function(){ return loadScript(cppLangUrl); })
     .then(function(){
       try{
         if(window.hljs && typeof hljs.highlightAll === 'function') hljs.highlightAll();
