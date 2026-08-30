@@ -329,6 +329,15 @@ body{
     background: #f2f2f2;
 }
 
+/* Safety net: prevent any element (e.g. a wide code block) from ever
+   forcing the whole page to scroll horizontally on mobile. Elements
+   that need their own horizontal scroll (like <pre>) keep it via their
+   own overflow-x: auto below. */
+html, body{
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 img{
     max-width: 100%;
     display: block;
@@ -796,6 +805,11 @@ body#programming-vfx .project-article {
     margin-top: 2.5rem;
     display: grid;
     gap: 2rem;
+    /* Fix: grid items default to min-width: auto, which stops them
+       shrinking below their content's natural width. A wide <pre> line
+       was forcing this whole grid (and the page) wider than the
+       viewport on mobile instead of scrolling internally. */
+    min-width: 0;
 }
 
 /* Page-specific refinements for a cleaner reading experience */
@@ -806,6 +820,9 @@ body#programming-vfx .heading{
 
 body#programming-vfx .article-section {
     line-height: 1.75;
+    /* Same fix as above: this is the actual grid item, so it needs
+       min-width: 0 too, or the parent's min-width: 0 has nothing to do. */
+    min-width: 0;
 }
 
 body#programming-vfx .article-title {
@@ -861,7 +878,8 @@ body#programming-vfx pre{
     color: #e6eef6;
     padding: 1rem;
     border-radius: 12px;
-    overflow: auto;
+    overflow-x: auto;
+    max-width: 100%;
     box-shadow: 0 10px 26px rgba(2,6,23,0.12);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
     font-size: 0.95rem;
