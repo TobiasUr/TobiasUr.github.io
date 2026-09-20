@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../../style.css">   
     <script src="../../js/highlight/init.js" defer></script>
     <script type="module" src="../../js/kicanvas/kicanvas.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
+
 
 </head>
 <body id="programming-vfx">
@@ -37,13 +39,12 @@
             <section class="project-article mx-auto">
                 <p class="video-eyebrow text-uppercase text-center">Engineering</p>
                 <p class="video-description text-center mx-auto">
-                    A custom Arduino shield for connecting load cells through an HX711 amplifier and reading the measured force with a microcontroller.
+                    A custom Arduino shield for connecting load cells and reading the measured force.
                 </p>
                 <div class="article-section">
-                    <p class="video-eyebrow text-uppercase">Engineering</p>
-                    <h2 class="article-title">Arduino load cell shield</h2>
+                    <h2 class="article-title">Description</h2>
                     <p>
-                        A custom Arduino shield for connecting load cells through an HX711 amplifier and reading the measured force with a microcontroller.
+                        A project for Panther Rocket Lab avionics subteam. A shield designed to connect load cells to an Arduino and read the measured force. The shield uses a HX711 load cell amplifier to convert the analog signal from the load cell into a digital signal that can be read by the Arduino. The shield also includes a voltage regulator to provide a stable power supply to the load cell and amplifier.
                     </p>
                 </div>
 
@@ -68,6 +69,23 @@
                         <div class="kicanvas-loading" role="status">Loading schematic...</div>
                     </div>
                 </div>
+
+                <div class="article-section">
+                    <h2 class="article-title">3D model</h2>
+                    <div class="model-viewer-shell">
+                        <model-viewer
+                            id="load-cell-shield-model"
+                            src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/engineering/load-cell-shield/LoadCellShield.glb"
+                            alt="3D model of the Load Cell Shield"
+                            camera-controls
+                            auto-rotate
+                            loading="eager"
+                            shadow-intensity="1">
+                        </model-viewer>
+                        <div class="model-viewer-loading" role="status">Loading 3D model...</div>
+                    </div>
+                </div>
+
             </section>
         </main>
 
@@ -79,4 +97,16 @@
 
 <!-- Bootstrap JS Bundle (includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        const modelViewer = document.querySelector('#load-cell-shield-model');
+        const modelViewerShell = modelViewer.closest('.model-viewer-shell');
+        const loadingMessage = modelViewerShell.querySelector('.model-viewer-loading');
+
+        modelViewer.addEventListener('load', () => {
+            modelViewerShell.classList.add('is-loaded');
+        });
+        modelViewer.addEventListener('error', () => {
+            loadingMessage.textContent = 'Unable to load the 3D model.';
+        });
+    </script>
 </body>

@@ -824,6 +824,37 @@ body#programming-vfx kicanvas-embed[loaded] + .kicanvas-loading {
     display: none;
 }
 
+body#programming-vfx .model-viewer-shell {
+    position: relative;
+    height: 560px;
+    max-width: 100%;
+    overflow: hidden;
+    background: #e8edf2;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+body#programming-vfx model-viewer {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+body#programming-vfx .model-viewer-loading {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #374151;
+    font-family: sans-serif;
+    pointer-events: none;
+}
+
+body#programming-vfx .model-viewer-shell.is-loaded .model-viewer-loading {
+    display: none;
+}
+
 body#programming-vfx .project-video {
     display: block;
     width: 100%;
@@ -1049,6 +1080,11 @@ body#programming-vfx .media-card--compact .media-image {
     }
 
     body#programming-vfx .kicanvas-shell {
+        height: 420px;
+        border-radius: 14px;
+    }
+
+    body#programming-vfx .model-viewer-shell {
         height: 420px;
         border-radius: 14px;
     }
