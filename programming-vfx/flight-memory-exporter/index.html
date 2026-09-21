@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flight Memory Exporter</title>
+        <meta name="description" content="A Python tool that scrapes flight history from FlightMemory.com and exports it to Excel.">
+        <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../style.css">
+        <script src="../../js/highlight/init.js" defer></script>
+    </head>
+
+<body id="programming-vfx">
+    <header>
+            <nav class = "navbar navbar-expand-lg navbar-light bg-light"> 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> 
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../../">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../">Programming & VFX</a>
+                        </li>
+                    </ul>
+            	</div>
+            </nav>
+            <h1 class="text-center heading">Flight Memory Exporter</h1>
+            <div class="text-center mt-3 mb-2">
+                <a class="btn" href="https://github.com/TobiasUr/FlightMemoryExporter" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+            </div>
+    </header>
+    <main class="container py-4 py-lg-5">
+        <div class="article-section">
+            <h2 class="article-title">Overview</h2>
+            <p>
+                Flight Memory Exporter is a tool I built to pull your logged flight history from <a href="https://www.flightmemory.com/">FlightMemory.com</a> and save it as a ready-to-use .xlsx file.
+            </p>
+            <figure class="media-card">
+                <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/flight_memory_exporter/flight_memory_exporter_excel.png" alt="Flight Memory Exporter exported flight data in Excel">
+                <figcaption>Exported table inside Excel</figcaption>
+            </figure>
+            <figure class="media-card">
+                <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/flight_memory_exporter/flight_memory_exporter_gui.png" alt="Flight Memory Exporter GUI">
+                <figcaption>Flight Memory Exporter's graphical user interface</figcaption>
+            </figure>
+            <p>
+                Since FlightMemory.com doesn't offer a public API, the tool relies on web scraping to pull the data straight from the site. It was originally meant to produce a file importable into MyFlightradar24, but the airport IDs that format requires aren't exposed on FlightMemory.com — so the export is best suited for personal record-keeping rather than re-importing elsewhere.
+            </p>
+
+        </div>
+        <div class="article-section">
+            <h2 class="article-title">Code construction</h2>
+            <p>
+                The tool is built around a few key libraries:
+            </p>
+                <ul>
+                    <li>Selenium — drives Chrome browser to log in and page through the flight history</li>
+                    <li>chromedriver-autoinstaller — installs and manages the matching ChromeDriver automatically</li>
+                    <li>BeautifulSoup4 — parses the saved HTML pages to pull flight data out of the table</li>
+                    <li>Openpyxl — writes the parsed data into an Excel workbook</li>
+                    <li>Tkinter — provides the simple desktop GUI</li>
+                </ul>
+            <p>First, a small GUI is built with Tkinter to collect the user's FlightMemory credentials and show progress.</p>
+            <pre><code class="language-python">
+root = tkinter.Tk()
+root.wm_title('FlightMemoryExporter')
+
+#UsernameInput
+tkinter.Label(root, text='Username:').grid(row = 0, column = 0)
+eUsername = tkinter.Entry(root, width=15, borderwidth=2)
+eUsername.grid(row = 0, column = 1)
+#PasswordInput
+tkinter.Label(root, text='Password:').grid(row = 1, column=0)
+ePassword = tkinter.Entry(root, width=15, borderwidth=2, show='*')
+ePassword.grid(row = 1, column = 1)
+ePassword.bind('<Return>', lambda event: OK())  # Bind Enter key to OK function
+#progressbar
+pb = ttk.Progressbar(orient='horizontal', length=100, mode='determinate')
+pb.grid(row = 3, column = 1)
+directory = './'
+#ConfirmButton
+tkinter.Button(root, text="OK",  command=lambda : OK()).grid(row=3, column=0)
+            </code></pre>
+            <p>Once the user submits their credentials, chromedriver is installed automatically and Selenium logs into FlightMemory by locating the login fields via their HTML <code>name</code> attributes.</p>
+            <pre><code class="language-python">
+chromedriver_autoinstaller.install()
+print('chromedriver installed')
+driver = webdriver.Chrome()
+#OpenLoginPage
+LOGIN_PAGE = "https://www.flightmemory.com/"
+
+driver.get(LOGIN_PAGE)
+wait = WebDriverWait(driver, 5)
+#EnterName
+wait.until(expected_conditions.element_to_be_clickable((By.NAME, "username"))).send_keys(account)
+print('enteredName')
+#EnterPassword
+wait.until(expected_conditions.element_to_be_clickable((By.NAME, "passwort"))).send_keys(password)
+print('enteredPassword')
+#SignIn
+wait.until(expected_conditions.element_to_be_clickable((By.XPATH, ".//input[@value='SignIn' and @type='submit']"))).click()
+print("SignedIn")
+            </code></pre>
+            <p>Once logged in, the tool navigates to the flight data page and saves every page of results, clicking the "next" button until it disappears — which signals that the last page has been reached.</p>
+            <pre><code class="language-python">
+while True:
+        try:
+            WebDriverWait(driver, 10).until(
+                expected_conditions.element_to_be_clickable((By.XPATH, "//img[contains(@src,'/images/next.gif')]"))).click()
+            pages.append(driver.execute_script("return document.documentElement.outerHTML"))
+        except TimeoutException:
+            print(f"Pages Found:{int(len(pages))}")
+            break
+            </code></pre>
+            <p>With every page saved, BeautifulSoup parses each one's table rows, pulling each flight's details out by their column (<code>&lt;td&gt;</code>) position.</p>
+            <pre><code class="language-python">
+ for page in pages:
+        # find table with BS
+        data = BeautifulSoup(page, 'html.parser')
+        container = data.select_one('.container')
+        tablebody = container.find_all('tbody')[2]
+        trs = tablebody.find_all('tr', recursive=False)
+        print(page)
+
+        # loop through each line
+        for idx, tr in enumerate(trs):
+            idx += lastidx
+            idx += 1
+
+            if idx != lastidx + 1:
+                # get info
+                flight_number = tr.find_all('td')[0]
+                date_dep_arr = tr.find_all('td')[1]
+                Departure = tr.find_all('td')[2]
+                Arrival = tr.find_all('td')[4]
+                Distance = tr.find_all('td')[6]
+                FlightTime = tr.find_all('td')[8]
+                Airline_Flightinfo = tr.find_all('td')[10]
+                Airplane = tr.find_all('td')[11]
+                Seat = tr.find_all('td')[12]
+                # edit time formating
+                # '-'.join([date_dep_arr[i:i+10] for i in range(0, len(date_dep_arr), 3)])
+                # addInfoToSheetMyFlightRadar
+                date = date_dep_arr.get_text()[0:10]
+                date = date.replace('.', '/')
+                date_formatted = date[6:]+"/"+date[3:5] +"/"+date[:2]
+                sheet.cell(row=idx, column=1).value = date_formatted
+                sheet.cell(row=idx, column=2).value = getinfo(Airline_Flightinfo, 1)
+                sheet.cell(row=idx, column=3).value = Departure.get_text()
+                sheet.cell(row=idx, column=4).value = Arrival.get_text()
+                sheet.cell(row=idx, column=5).value = date_dep_arr.get_text()[10:15]
+                sheet.cell(row=idx, column=6).value = date_dep_arr.get_text()[15:20]
+                sheet.cell(row=idx, column=7).value = FlightTime.get_text()
+                sheet.cell(row=idx, column=8).value = getinfo(Airline_Flightinfo, 0)
+                sheet.cell(row=idx, column=9).value = getinfo(Airplane, 0)
+                sheet.cell(row=idx, column=10).value = getinfo(Airplane, 1)
+                sheet.cell(row=idx, column=11).value = Seat.get_text().split('/')[0]
+                sheet.cell(row=idx, column=12).value = getSeatInfo(1, Seat)
+                sheet.cell(row=idx, column=13).value = getSeatInfo(2, Seat)
+                sheet.cell(row=idx, column=14).value = getSeatInfo(3, Seat)
+            </code></pre>
+            <p>Finally, the parsed data is written into an Excel workbook with Openpyxl and saved to the location the user chose.</p>
+            <p>The user can then open the generated Excel file to view and view their flight data.</p>
+        </div>
+
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

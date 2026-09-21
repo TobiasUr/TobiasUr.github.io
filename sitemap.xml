@@ -2,35 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tobur.me/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/engineering/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/engineering/glider/</loc>
+    <lastmod>2026-09-21</lastmod>
+  </url>
+  <url>
+    <loc>https://tobur.me/engineering/load-cell-shield/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/programming-vfx/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
-    <loc>https://tobur.me/programming-vfx/Davinci_Blender/</loc>
+    <loc>https://tobur.me/programming-vfx/davinci-blender/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
-    <loc>https://tobur.me/programming-vfx/3d_grav_sim/</loc>
+    <loc>https://tobur.me/programming-vfx/3d-grav-sim/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
-    <loc>https://tobur.me/programming-vfx/Flight_Memory_Exporter/</loc>
+    <loc>https://tobur.me/programming-vfx/flight-memory-exporter/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/photography/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/blogs/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/blogs/morocco-gibraltar/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://tobur.me/blogs/morocco-gibraltar/photography/</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
 </urlset>
