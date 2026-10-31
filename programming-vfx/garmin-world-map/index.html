@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Garmin World Map</title>
+        <meta name="description" content="A Python tool that puts all your GPS-tracked Garmin activities on one interactive map.">
+        <link rel="canonical" href="https://tobur.me/programming-vfx/garmin-world-map/">
+        <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../style.css">
+        <script src="../../js/highlight/init.js" defer></script>
+    </head>
+
+<body id="programming-vfx">
+    <header>
+            <nav class = "navbar navbar-expand-lg navbar-light bg-light"> 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> 
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../../">Home</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../">Programming & VFX</a>
+                        </li>
+                    </ul>
+            	</div>
+            </nav>
+            <h1 class="text-center heading">Garmin World Map</h1>
+            <div class="text-center mt-3 mb-2">
+                <a class="btn" href="https://github.com/TobiasUr/GarminWorldMap" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+            </div>
+    </header>
+    <main class="container py-4 py-lg-5">
+        <div class="article-section">
+            <h2 class="article-title">Overview</h2>
+            <p>
+                 Garmin World Map is a tool I built to download every GPS-tracked activity from your <a href="https://connect.garmin.com/">Garmin Connect</a> account and draw them all on a single interactive world map. Routes can be shown as colored lines, one color per sport, or as a Strava-style heatmap.
+            </p>
+            <figure class="media-card">
+                <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/garmin-world-map/garmin_world_map_map.png" alt="Garmin World Map showing all activities">
+                <figcaption>Garmin World Map displaying all GPS-tracked activities</figcaption>
+            </figure>
+            <figure class="media-card">
+                <img class="media-image" src="https://pub-62bbeee194df44df80128065886ae438.r2.dev/programming_vfx/garmin-world-map/garmin_world_map_gui.png" alt="Garmin World Map GUI">
+                <figcaption>Garmin World Map's graphical user interface</figcaption>
+            </figure>
+            <p>
+                The tool talks to Garmin Connect through the unofficial <code>garminconnect</code> Python library rather than an official public API, so it is best suited for personal use. Sessions are cached, so after the first login the tool does not need to authenticate again, and already-downloaded tracks are never fetched twice.
+            </p>
+            <p><small>Disclaimer: AI was used in the development of this program.</small></p>
+        </div>
+        <div class="article-section">
+            <h2 class="article-title">Code construction</h2>
+            <p>
+                The tool is built around a few key libraries:
+            </p>
+                <ul>
+                    <li>garminconnect — logs in to Garmin Connect, fetches all activities and downloads their GPX files.</li>
+                    <li>gpxpy — parses the downloaded GPX files to extract the GPS data.</li>
+                    <li>folium — creates the interactive world map and displays the GPS data.</li>
+                    <li>customtkinter — provides the custom GUI.</li>
+                    <li>pywebview — opens the interactive map in a web view.</li>
+                </ul>
+            <p>After setting constants such as the number of activities requested at one time and the colors assigned to each activity type, the program tries to log in to Garmin Connect using cached information. If that fails, it logs in from scratch and asks for an MFA code if one is required.</p>
+            <pre><code class="language-python">
+def get_client(email=None, password=None, mfa=None):
+    token_store_path = str(TOKEN_STORE)
+
+    if email is None:
+        email = input("Garmin email: ").strip()
+    if password is None:
+        password = getpass.getpass("Garmin password: ")
+
+    mfa_code = (mfa or "").strip()
+
+    def prompt_mfa():
+        if mfa_code:
+            return mfa_code
+        return input("MFA code: ").strip()
+
+    try:
+        client = Garmin(email, password)
+        client.login(token_store_path)
+        return client
+    except GarminConnectTooManyRequestsError:
+        print("Too many requests. Please try again later.")
+        sys.exit(1)
+    except (
+        FileNotFoundError,
+        GarminConnectAuthenticationError,
+        GarminConnectConnectionError,
+    ) as e:
+        print(f"No usable cached session ({e}), logging in fresh...")
+
+    client = Garmin(email, password, prompt_mfa=prompt_mfa)
+            </code></pre>
+            <p>After the user is logged in, the tool fetches all activities in batches of 100 to stay within Garmin's rate limits. These activities are then stored in a JSON list so that they are skipped the next time the program is run.</p>
+            <pre><code class="language-python">
+while True:
+        try:
+            batch = client.get_activities(start, BATCH_SIZE)
+        except Exception as e:
+            print(f"Error fetching activities at offset {start}: {e}")
+            print("Stopping here; you can re-run to retry (cache will resume).")
+            break
+        if not batch:
+            break
+
+        all_activities.extend(batch)
+        start += BATCH_SIZE
+        print(f"Fetched {len(all_activities)} activities so far...")
+
+        if len(batch) < BATCH_SIZE:
+            break
+
+        time.sleep(REQUEST_DELAY)
+            </code></pre>
+            <p>Then only the activities with a polyline (GPS coordinates) are saved. Each one is named <code>[activity_id].gpx</code>, and files that are already downloaded are skipped.</p>
+            <pre><code class="language-python">
+def download_gpx(client, activities):
+    GPX_DIR.mkdir(exist_ok=True)
+    gps_activities = [a for a in activities if has_GPS(a)]
+    print(f"{len(gps_activities)} of {len(activities)} activities have GPS tracks.")
+
+    for i, activity in enumerate(gps_activities, 1):
+        activity_id = activity["activityId"]
+        gpx_path = GPX_DIR / f"{activity_id}.gpx"
+
+        if gpx_path.exists():
+            print(f"[{i}/{len(gps_activities)}] Skipping {activity_id} (already downloaded).")
+            continue
+        try:
+            gpx_data = client.download_activity(activity_id, dl_fmt=client.ActivityDownloadFormat.GPX)
+            if gpx_data and len(gpx_data) > 200:
+                with open(gpx_path, "wb") as f:
+                    f.write(gpx_data)
+                print(f"[{i}/{len(gps_activities)}] Downloaded {activity_id} to {gpx_path}.")
+            else:
+                print(f"  [{i}/{len(gps_activities)}] {activity_id}: empty GPX, skipping")
+
+        except Exception as e:
+            print(f"  [{i}/{len(gps_activities)}] {activity_id}: error downloading GPX: {e}")
+
+        if i % 25 == 0:
+            print(f"  Downloaded {i} of {len(gps_activities)} activities so far...")
+        time.sleep(REQUEST_DELAY)
+            </code></pre>
+            <p>With the downloaded files, gpxpy is used to go through each one and flatten the GPS data into a single list of coordinates.</p>
+            <pre><code class="language-python">
+def get_coordinates(gpx_path):
+    try:
+        with open(gpx_path) as f:
+            gpx = gpxpy.parse(f)
+    except Exception as e:
+        print(f"  Could not parse {gpx_path}: {e}")
+        return []
+
+    coords = []
+    for track in gpx.tracks:
+        for segment in track.segments:
+            coords.extend([(p.latitude, p.longitude) for p in segment.points])
+    return coords
+            </code></pre>
+            <p>Finally, folium is used to create the interactive map. In line mode, every route becomes a colored polyline, with the color picked from the activity's sport and the activity name shown as a tooltip. In heatmap mode, all points are pooled into one heat layer instead. Either way, the view is fitted to the bounds of all plotted activities.</p>
+            <pre><code class="language-python">
+def build_map(activities, mode='lines'):
+    """mode: 'lines' for colored routes, 'heatmap' for a Strava-style heatmap."""
+    activity_by_id = {a["activityId"]: a for a in activities}
+    if CARTO_API_KEY:
+        carto_tiles = (
+            "https://{s}.basemaps.cartocdn.com/light_all/"
+            "{z}/{x}/{y}{r}.png?api_key=" + CARTO_API_KEY
+        )
+        m = folium.Map(
+            location=[0, 0],
+            zoom_start=2,
+            tiles=carto_tiles,
+            attr="&copy; OpenStreetMap contributors &copy; CARTO",
+        )
+    else:
+        m = folium.Map(
+            location=[0, 0],
+            zoom_start=2,
+            tiles=(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/"
+                "World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            ),
+            attr="Tiles &copy; Esri",
+        )
+
+    all_latitudes, all_longitudes = [], []
+    all_points_heatmap = []
+    plotted = 0
+
+    for gpx_file in sorted(glob.glob(str(GPX_DIR / "*.gpx"))):
+        activity_id = int(Path(gpx_file).stem)
+        coords = get_coordinates(gpx_file)
+        if not coords:
+            print(f"  No coordinates found in {gpx_file}, skipping.")
+            continue
+        if mode == 'heatmap':
+            all_points_heatmap.extend(coords)
+        else:
+            activity = activity_by_id.get(activity_id, {})
+            activity_type = activity.get("activityType", {})
+            sport = activity_type.get("typeKey", "") if isinstance(activity_type, dict) else ""
+            color = SPORT_COLOURS.get(sport, DEFAULT_COLOUR)
+            name = activity.get("activityName", str(activity_id))
+
+            folium.PolyLine(coords, color=color, weight=2, opacity=0.6, tooltip=name).add_to(m)
+
+        all_latitudes.extend(c[0] for c in coords)
+        all_longitudes.extend(c[1] for c in coords)
+        plotted += 1
+
+    if mode == 'heatmap':
+        HeatMap(all_points_heatmap, radius=5, blur=3).add_to(m)
+
+    if all_latitudes:
+        m.fit_bounds([[min(all_latitudes), min(all_longitudes)], [max(all_latitudes), max(all_longitudes)]])
+    return m
+            </code></pre>
+            <p>After the map is built, it is saved to an HTML file and opened in a web view.</p>
+        </div>
+        <div class="article-section">
+            <h2 class="article-title">GUI</h2>
+            <p>The interface is built with CustomTkinter and collects the Garmin email, password, an optional MFA code, and a checkbox to switch to heatmap mode. A second button clears all cached data.</p>
+            <p>The export runs on a background thread so the window never freezes. To show progress, <code>sys.stdout</code> is replaced with a small class that writes every <code>print</code> call into a console box inside the window.</p>
+            <pre><code class="language-python">
+class TerminalOutputRedirector:
+    def __init__(self, root, text_widget):
+        """Initializes the redirector with a target text widget."""
+        self.root = root
+        self.text_widget = text_widget
+
+    def write(self, string):
+        """Intercepts stream writes and inserts them into the widget."""
+        def append_to_widget():
+            if not self.text_widget.winfo_exists():
+                return
+
+            self.text_widget.configure(state="normal")
+            self.text_widget.insert(tkinter.END, string)
+            self.text_widget.see(tkinter.END)
+            self.text_widget.configure(state="disabled")
+
+        self.root.after(0, append_to_widget)
+
+    def flush(self):
+        """Required for stream compatibility, keeps buffer operations safe."""
+        pass
+            </code></pre>
+        </div>
+</main>
+ <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2026 Tobias Urbanek. All rights reserved. | <a href="https://github.com/TobiasUr" class="text-white">GitHub</a></p>
+        </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script data-goatcounter="https://tobiasur.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
