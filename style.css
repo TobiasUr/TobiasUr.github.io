@@ -1199,6 +1199,10 @@ body#programming-vfx .article-section p:last-child {
     max-width: 1100px;
 }
 
+body#experience .heading {
+    color: #111827;
+}
+
 .experience-intro,
 .experience-section {
     margin: 0 auto 4rem;
