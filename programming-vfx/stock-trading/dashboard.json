@@ -1,10 +1,33 @@
 {
-  "updated_at": "2026-11-22T19:30:30.725083+00:00",
+  "updated_at": "2026-11-24T07:40:25.699108+00:00",
   "currency": "CZK",
-  "cash": 13.87,
-  "market_value": 0,
-  "cost": 0,
-  "pnl": 0,
+  "cash": 14.58,
+  "market_value": 64.07,
+  "cost": 0.0,
+  "pnl": 64.07,
   "percent": 0.0,
-  "positions": []
+  "positions": [
+    {
+      "ticker": "ERIC",
+      "quantity": 0.12,
+      "entry_price_usd": 0.0,
+      "current_price_usd": 10.22,
+      "entry_value": 0.0,
+      "market_value": 27.48,
+      "pnl": 27.48,
+      "percent": null,
+      "bought_at": null
+    },
+    {
+      "ticker": "GM",
+      "quantity": 0.02,
+      "entry_price_usd": 0.0,
+      "current_price_usd": 81.64,
+      "entry_value": 0.0,
+      "market_value": 36.59,
+      "pnl": 36.59,
+      "percent": null,
+      "bought_at": null
+    }
+  ]
 }
