@@ -70,6 +70,20 @@
         .position-detail { color: #64748b; font-size: .8rem; }
         .position-value { font-weight: 700; text-align: right; }
         .empty-state { padding: 2rem 1rem; text-align: center; color: #64748b; }
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            margin-top: 1rem;
+        }
+        #pnlChart { width: 100%; height: 100%; display: block; }
+        .chart-empty {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: #64748b;
+        }
         @media (max-width: 800px) {
             .trading-hero { grid-template-columns: 1fr; }
             .trading-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -122,6 +136,14 @@
         </div>
     </section>
 
+    <div class="article-section mb-4">
+        <h2 class="article-title">Profit &amp; loss history</h2>
+        <div class="chart-wrap">
+            <canvas id="pnlChart" role="img" aria-label="Portfolio profit and loss over time"></canvas>
+            <div id="chartEmpty" class="chart-empty">Collecting chart history...</div>
+        </div>
+    </div>
+
     <div class="article-section">
         <h2 class="article-title">Open positions</h2>
         <div id="positions" class="positions-grid">
@@ -173,6 +195,111 @@ async function refreshYahoo(positionCards) {
     }
 }
 
+function drawPnlChart(history, currency) {
+    const canvas = document.getElementById("pnlChart");
+    const empty = document.getElementById("chartEmpty");
+    const points = (Array.isArray(history) ? history : [])
+        .filter(point => Number.isFinite(Number(point.pnl)) && !Number.isNaN(new Date(point.timestamp).getTime()))
+        .map(point => ({ time: new Date(point.timestamp), pnl: Number(point.pnl) }));
+
+    if (!points.length) {
+        empty.style.display = "grid";
+        empty.textContent = "No profit and loss history yet.";
+        return;
+    }
+    empty.style.display = "none";
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    const width = rect.width;
+    const height = rect.height;
+    const padding = { top: 18, right: 18, bottom: 38, left: 68 };
+    const plotWidth = width - padding.left - padding.right;
+    const plotHeight = height - padding.top - padding.bottom;
+
+    let values = points.map(point => point.pnl);
+    values.push(0);
+    const rawMin = Math.min(...values);
+    const rawMax = Math.max(...values);
+    const range = Math.max(rawMax - rawMin, 1);
+    const min = rawMin - range * 0.12;
+    const max = rawMax + range * 0.12;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = "12px sans-serif";
+    ctx.textBaseline = "middle";
+    ctx.strokeStyle = "rgba(51,65,85,.12)";
+    ctx.fillStyle = "#64748b";
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i <= 4; i++) {
+        const y = padding.top + (plotHeight * i / 4);
+        const value = max - ((max - min) * i / 4);
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(width - padding.right, y);
+        ctx.stroke();
+        ctx.textAlign = "right";
+        ctx.fillText(formatMoney(value, currency), padding.left - 8, y);
+    }
+
+    const xAt = index => points.length === 1
+        ? padding.left + plotWidth / 2
+        : padding.left + (plotWidth * index / (points.length - 1));
+    const yAt = value => padding.top + (plotHeight * (max - value) / (max - min));
+
+    const zeroY = yAt(0);
+    ctx.strokeStyle = "rgba(51,65,85,.45)";
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(padding.left, zeroY);
+    ctx.lineTo(width - padding.right, zeroY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.beginPath();
+    points.forEach((point, index) => {
+        const x = xAt(index);
+        const y = yAt(point.pnl);
+        if (index === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.lineTo(xAt(points.length - 1), zeroY);
+    ctx.lineTo(xAt(0), zeroY);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(34,197,94,.10)";
+    ctx.fill();
+
+    ctx.beginPath();
+    points.forEach((point, index) => {
+        const x = xAt(index);
+        const y = yAt(point.pnl);
+        if (index === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = points[points.length - 1].pnl >= 0 ? "#16a34a" : "#dc2626";
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.stroke();
+
+    ctx.fillStyle = points[points.length - 1].pnl >= 0 ? "#16a34a" : "#dc2626";
+    ctx.beginPath();
+    ctx.arc(xAt(points.length - 1), yAt(points[points.length - 1].pnl), 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#64748b";
+    ctx.textAlign = "left";
+    ctx.fillText(points[0].time.toLocaleDateString(), padding.left, height - 12);
+    ctx.textAlign = "right";
+    ctx.fillText(points[points.length - 1].time.toLocaleDateString(), width - padding.right, height - 12);
+}
+
 async function loadDashboard() {
     try {
         const response = await fetch(`${SNAPSHOT_URL}?t=${Date.now()}`, { cache: "no-store" });
@@ -220,6 +347,10 @@ async function loadDashboard() {
             totalPercent.textContent = `${signed(percent)}%`;
             totalPercent.className = `metric-value ${valueClass(percent)}`;
         }
+
+        const liveHistory = Array.isArray(data.history) ? data.history.slice() : [];
+        liveHistory.push({ timestamp: new Date().toISOString(), pnl });
+        drawPnlChart(liveHistory, currency);
 
         const container = document.getElementById("positions");
         if (!positions.length) {
