@@ -1,13 +1,36 @@
 {
-  "updated_at": "2026-11-27T02:12:48.923549+00:00",
+  "updated_at": "2026-11-27T23:26:08.006360+00:00",
   "currency": "CZK",
-  "cash": 23.92,
-  "market_value": 0,
-  "cost": 0,
-  "pnl": 0,
-  "percent": 0.0,
-  "cost_basis_complete": true,
-  "positions": [],
+  "cash": 26.19,
+  "market_value": 52.22,
+  "cost": null,
+  "pnl": null,
+  "percent": null,
+  "cost_basis_complete": false,
+  "positions": [
+    {
+      "ticker": "HPQ",
+      "quantity": 0.037,
+      "entry_price_usd": null,
+      "current_price_usd": 32.15,
+      "entry_value": null,
+      "market_value": 26.55,
+      "pnl": null,
+      "percent": null,
+      "bought_at": null
+    },
+    {
+      "ticker": "EPR",
+      "quantity": 0.019,
+      "entry_price_usd": null,
+      "current_price_usd": 60.53,
+      "entry_value": null,
+      "market_value": 25.67,
+      "pnl": null,
+      "percent": null,
+      "bought_at": null
+    }
+  ],
   "history": [
     {
       "timestamp": "2026-11-24T15:52:14.629800+00:00",
